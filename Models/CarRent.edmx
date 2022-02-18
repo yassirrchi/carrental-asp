@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarRentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdresseElec" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumTel" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateNais" Type="datetime" />
+          <Property Name="CIN" Type="nvarchar" MaxLength="200" />
+          <Property Name="Permis" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="EtatdeCompte" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Reservations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CID" Type="int" />
+          <Property Name="VID" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateDebut" Type="datetime" />
+          <Property Name="dateFin" Type="datetime" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="Accepted" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Function" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Voitures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marque" Type="nvarchar" MaxLength="50" />
+          <Property Name="Categorie" Type="nvarchar" MaxLength="50" />
+          <Property Name="Serie" Type="nvarchar" MaxLength="50" />
+          <Property Name="Immatriculaion" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateMC" Type="datetime" />
+          <Property Name="Carburant" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrixJ" Type="int" />
+          <Property Name="Dispo" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Reservation__CID__5CD6CB2B">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="CID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservation__VID__5DCAEF64">
+          <End Role="Voitures" Type="Self.Voitures" Multiplicity="0..1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voitures">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="VID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarRentModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voitures" EntityType="Self.Voitures" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Reservation__CID__5CD6CB2B" Association="Self.FK__Reservation__CID__5CD6CB2B">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservation__VID__5DCAEF64" Association="Self.FK__Reservation__VID__5DCAEF64">
+            <End Role="Voitures" EntitySet="Voitures" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarRentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdresseElec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumTel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateNais" Type="DateTime" Precision="3" />
+          <Property Name="CIN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Permis" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EtatdeCompte" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Reservations" Relationship="CarRentModel.FK__Reservation__CID__5CD6CB2B" FromRole="Clients" ToRole="Reservations" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Function" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Voitures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Categorie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Serie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Immatriculaion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateMC" Type="DateTime" Precision="3" />
+          <Property Name="Carburant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrixJ" Type="Int32" />
+          <NavigationProperty Name="Reservations" Relationship="CarRentModel.FK__Reservation__VID__5DCAEF64" FromRole="Voitures" ToRole="Reservations" />
+          <Property Name="Dispo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="CarRentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <EntitySet Name="Voitures" EntityType="Self.Voitures" />
+          <EntitySet Name="Reservations" EntityType="CarRentModel.Reservations" />
+          <AssociationSet Name="FK__Reservation__CID__5CD6CB2B" Association="CarRentModel.FK__Reservation__CID__5CD6CB2B">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservation__VID__5DCAEF64" Association="CarRentModel.FK__Reservation__VID__5DCAEF64">
+            <End Role="Voitures" EntitySet="Voitures" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Reservations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CID" Type="Int32" />
+          <Property Name="VID" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateDebut" Type="DateTime" Precision="3" />
+          <Property Name="dateFin" Type="DateTime" Precision="3" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="Accepted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clients" Relationship="CarRentModel.FK__Reservation__CID__5CD6CB2B" FromRole="Reservations" ToRole="Clients" />
+          <NavigationProperty Name="Voitures" Relationship="CarRentModel.FK__Reservation__VID__5DCAEF64" FromRole="Reservations" ToRole="Voitures" />
+        </EntityType>
+        <Association Name="FK__Reservation__CID__5CD6CB2B">
+          <End Type="CarRentModel.Clients" Role="Clients" Multiplicity="0..1" />
+          <End Type="CarRentModel.Reservations" Role="Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="CID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservation__VID__5DCAEF64">
+          <End Type="CarRentModel.Voitures" Role="Voitures" Multiplicity="0..1" />
+          <End Type="CarRentModel.Reservations" Role="Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voitures">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="VID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarRentModelStoreContainer" CdmEntityContainer="CarRentEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="CarRentModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="AdresseElec" ColumnName="AdresseElec" />
+                <ScalarProperty Name="NumTel" ColumnName="NumTel" />
+                <ScalarProperty Name="DateNais" ColumnName="DateNais" />
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Permis" ColumnName="Permis" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EtatdeCompte" ColumnName="EtatdeCompte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="CarRentModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Function" ColumnName="Function" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Voitures">
+            <EntityTypeMapping TypeName="CarRentModel.Voitures">
+              <MappingFragment StoreEntitySet="Voitures">
+                <ScalarProperty Name="Dispo" ColumnName="Dispo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Marque" ColumnName="Marque" />
+                <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+                <ScalarProperty Name="Immatriculaion" ColumnName="Immatriculaion" />
+                <ScalarProperty Name="DateMC" ColumnName="DateMC" />
+                <ScalarProperty Name="Carburant" ColumnName="Carburant" />
+                <ScalarProperty Name="PrixJ" ColumnName="PrixJ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="CarRentModel.Reservations">
+              <MappingFragment StoreEntitySet="Reservations">
+                <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+                <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="VID" ColumnName="VID" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
